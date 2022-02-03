@@ -24,13 +24,13 @@ public class AssetSetter {
             if(col == 50 && row == 40){
                 col++;
             }
-            
+
             if(bombDetected <= 3) {
                 gp.obj[count] = new Object_Bomb();
                 gp.obj[count].worldX = col * gp.tileSize;
                 gp.obj[count].worldY = row * gp.tileSize;
                 count++;
-                if(count == 240) {break;}
+                if(count == gp.maxBomb) {break;}
             }
 
             col++;
