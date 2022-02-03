@@ -17,7 +17,7 @@ public class Player extends Entity{
     public int screenX;
     public int screenY;
     int b2StandCounter;
-    String turning_flag = "down";
+    public String turning_flag = "down";
 
     public Player(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
@@ -99,6 +99,7 @@ public class Player extends Entity{
             collisionOn = false;
             gp.cChecker.checkTile(this);
             int objIndex = gp.cChecker.checkObject(this, true);
+            stepOnObj(objIndex);
 
             if(collisionOn == false) {
                 switch(direction) {
@@ -157,7 +158,16 @@ public class Player extends Entity{
             }
         }
     }
-    
+    public void stepOnObj(int index) {
+        if(index != 999) {
+            gp.player.life -= 1;
+            if(gp.player.life == 0) {
+                gp.gameState = gp.gameOverState;
+            }
+            gp.obj[index].isStepped = true;
+            gp.obj[index].image = null;
+        }
+    }
 
     public void draw(Graphics2D g2) {
         BufferedImage image = null;
