@@ -13,36 +13,41 @@ public class AssetSetter {
     }
 
     public void setObject() {
-        int col = 0;
-        int row = 0;
+        int col = 1;
+        int row = 1;
         int count = 0;
 
-        while(col < gp.maxWorldCol && row < gp.maxWorldRow) {
-            if(bombRandom(col, row) == true) {
+        while(col < gp.maxWorldCol - 1 && row < gp.maxWorldRow - 1) {
+            Random rand = new Random();
+            int bombDetected = rand.nextInt(100);
+
+            if(bombDetected <= 3) {
                 gp.obj[count] = new Object_Bomb();
                 gp.obj[count].worldX = col * gp.tileSize;
                 gp.obj[count].worldY = row * gp.tileSize;
+                count++;
+                if(count == 300) {break;}
             }
 
             col++;
-            if(col == gp.maxWorldCol) {
+            if(col == gp.maxWorldCol - 1) {
                 col = 0;
                 row++;
             }
         }
     }
 
-    public boolean bombRandom (int col, int row) {
-        Random rand = new Random();
-        if(col > 0 && col < gp.maxWorldCol - 1 && row > 0 && row < gp.maxWorldRow - 1){
-            int bombDetected = rand.nextInt(100);
-            if(bombDetected <= 6) {
-                return true;
-            } else{
-                return false;
-            }
-        } else{
-            return false;
-        }
-    }
+    // public boolean bombRandom (int col, int row) {
+    //     Random rand = new Random();
+    //     if(col > 0 && col < gp.maxWorldCol - 1 && row > 0 && row < gp.maxWorldRow - 1){
+    //         int bombDetected = rand.nextInt(100);
+    //         if(bombDetected <= 6) {
+    //             return true;
+    //         } else{
+    //             return false;
+    //         }
+    //     } else{
+    //         return false;
+    //     }
+    // }
 }
