@@ -120,8 +120,8 @@ public class UI {
 
         // Character
         x = gp.screenWidth / 2 - (gp.tileSize * 2) / 2;
-        y += gp.tileSize * 2;
-        g2.drawImage(gp.player.down1, x, y, gp.tileSize * 2, gp.tileSize * 2, null);
+        y += gp.tileSize * 4;
+        g2.drawImage(gp.player.right2, x, y, gp.tileSize * 3, gp.tileSize * 3, null);
 
         // Menu
         g2.setFont(retro);
@@ -130,7 +130,7 @@ public class UI {
 
         text = "START";
         x = getCenterX(text, g2);
-        y += gp.tileSize * 10;
+        y += gp.tileSize * 8;
         g2.drawString(text, x, y);
         if(commandNum == 0) {
             g2.drawString(">", x - gp.tileSize, y);
