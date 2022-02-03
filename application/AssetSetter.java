@@ -21,6 +21,10 @@ public class AssetSetter {
             Random rand = new Random();
             int bombDetected = rand.nextInt(100);
 
+            if(col == 50 && row == 40){
+                col++;
+            }
+            
             if(bombDetected <= 3) {
                 gp.obj[count] = new Object_Bomb();
                 gp.obj[count].worldX = col * gp.tileSize;
