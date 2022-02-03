@@ -26,28 +26,14 @@ public class AssetSetter {
                 gp.obj[count].worldX = col * gp.tileSize;
                 gp.obj[count].worldY = row * gp.tileSize;
                 count++;
-                if(count == 300) {break;}
+                if(count == 240) {break;}
             }
 
             col++;
             if(col == gp.maxWorldCol - 1) {
-                col = 0;
+                col = 1;
                 row++;
             }
         }
     }
-
-    // public boolean bombRandom (int col, int row) {
-    //     Random rand = new Random();
-    //     if(col > 0 && col < gp.maxWorldCol - 1 && row > 0 && row < gp.maxWorldRow - 1){
-    //         int bombDetected = rand.nextInt(100);
-    //         if(bombDetected <= 6) {
-    //             return true;
-    //         } else{
-    //             return false;
-    //         }
-    //     } else{
-    //         return false;
-    //     }
-    // }
 }

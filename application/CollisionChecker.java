@@ -61,4 +61,62 @@ public class CollisionChecker {
             break;
         }
     }
+
+    public int checkObject(Entity entity, boolean player) {
+        int index = 999;
+
+        for(int i = 0; i < gp.obj.length; i++) {
+            if(gp.obj[i] != null) {
+                entity.solidHitBox.x = entity.worldX + entity.solidHitBox.x;
+                entity.solidHitBox.y = entity.worldY + entity.solidHitBox.y;
+
+                gp.obj[i].solidObjHitBox.x = gp.obj[i].worldX + gp.obj[i].solidObjHitBox.x;
+                gp.obj[i].solidObjHitBox.y = gp.obj[i].worldY + gp.obj[i].solidObjHitBox.y;
+
+                switch(entity.direction) {
+                case "up":
+                    entity.solidHitBox.y -= entity.speed;
+                    if(entity.solidHitBox.intersects(gp.obj[i].solidObjHitBox) && gp.obj[i].isStepped == false) {
+                        gp.player.life -= 1;
+                        gp.obj[i].isStepped = true;
+                        gp.obj[i].image = null;
+                    }
+                    break;
+                case "down":
+                    entity.solidHitBox.y += entity.speed;
+                    if(entity.solidHitBox.intersects(gp.obj[i].solidObjHitBox) && gp.obj[i].isStepped == false) {
+                        gp.player.life -= 1;
+                        gp.obj[i].isStepped = true;
+                        gp.obj[i].image = null;
+                    }
+                    break;
+                case "left":
+                    entity.solidHitBox.x -= entity.speed;
+                    if(entity.solidHitBox.intersects(gp.obj[i].solidObjHitBox) && gp.obj[i].isStepped == false) {
+                        gp.player.life -= 1;
+                        gp.obj[i].isStepped = true;
+                        gp.obj[i].image = null;
+                    }
+                    break;
+                case "right":
+                    entity.solidHitBox.x += entity.speed;
+                    if(entity.solidHitBox.intersects(gp.obj[i].solidObjHitBox) && gp.obj[i].isStepped == false) {
+                        gp.player.life -= 1;
+                        gp.obj[i].isStepped = true;
+                        gp.obj[i].image = null;
+                    }
+                    break;
+                }
+                if(gp.player.life == 0) {
+                    gp.gameState = gp.gameOverState;
+                }
+                entity.solidHitBox.x = entity.solidHitBoxDefaultX;
+                entity.solidHitBox.y = entity.solidHitBoxDefaultY;
+                gp.obj[i].solidObjHitBox.x = gp.obj[i].solidObjHitBoxDefaultX;
+                gp.obj[i].solidObjHitBox.y = gp.obj[i].solidObjHitBoxDefaultY;
+            }
+        }
+
+        return index;
+    }
 }

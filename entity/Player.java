@@ -26,7 +26,7 @@ public class Player extends Entity{
         screenX = gp.screenWidth/2 - (gp.tileSize/2);
         screenY = gp.screenHeight/2 - (gp.tileSize/2);
         
-        solidHitBox = new Rectangle(10, 10, 12, 12);
+        solidHitBox = new Rectangle(15, 15, 2, 2);
         solidHitBoxDefaultX = solidHitBox.x;
         solidHitBoxDefaultY = solidHitBox.y;
 
@@ -62,8 +62,6 @@ public class Player extends Entity{
         right2 = setup("player_right2");
         right3 = setup("player_right3");
         right4 = setup("player_right4");
-        hurt1 = setup("player_hurt1");
-        hurt2 = setup("player_hurt2");
     }
 
     public BufferedImage setup(String imageName) {
@@ -100,8 +98,7 @@ public class Player extends Entity{
 
             collisionOn = false;
             gp.cChecker.checkTile(this);
-
-            // gp.eHandler.checkEvent();
+            int objIndex = gp.cChecker.checkObject(this, true);
 
             if(collisionOn == false) {
                 switch(direction) {

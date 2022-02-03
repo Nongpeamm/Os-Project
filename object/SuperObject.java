@@ -2,6 +2,7 @@ package object;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.awt.Rectangle;
 
 import application.GamePanel;
 import application.UtilityTool;
@@ -9,7 +10,11 @@ import application.UtilityTool;
 public class SuperObject {
     public BufferedImage image;
     public String name;
+    public boolean isStepped = false;
     public int worldX, worldY;
+    public Rectangle solidObjHitBox = new Rectangle(0, 0, 32, 32);
+    public int solidObjHitBoxDefaultX = 0;
+    public int solidObjHitBoxDefaultY = 0;
 
     UtilityTool uTool = new UtilityTool();
 
