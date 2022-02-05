@@ -66,7 +66,7 @@ public class GamePanel extends JPanel implements Runnable{
 
     @Override
     public void run() {
-        double drawInterval = 100000000;
+        double drawInterval = 1000000000/60;
         double nextDrawTime = System.nanoTime() + drawInterval;
 
         while(gameThread != null) {

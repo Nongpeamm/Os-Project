@@ -59,7 +59,7 @@ public class UI {
             g2.drawString("X: " + gp.player.worldX / 32, 5, 20);
             g2.drawString("Y: " + gp.player.worldY / 32, 70, 20);
 
-            playTime += (double)1/10;
+            playTime += (double)1/60;
             g2.drawString("Time: " + dFormat.format(playTime), 690, 20);
         }
         if(gp.gameState == gp.pauseState) {
@@ -170,19 +170,19 @@ public class UI {
         g2.setColor(Color.black);
         g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 30F));
 
-        text = "TRY AGAIN";
+        // text = "TRY AGAIN";
+        // x = getCenterX(text, g2);
+        // y += gp.tileSize * 5;
+        // g2.drawString(text, x, y);
+        // if(commandNum == 0) {
+        //     g2.drawString(">", x - gp.tileSize, y);
+        // }
+
+        text = "QUIT";
         x = getCenterX(text, g2);
         y += gp.tileSize * 5;
         g2.drawString(text, x, y);
         if(commandNum == 0) {
-            g2.drawString(">", x - gp.tileSize, y);
-        }
-
-        text = "QUIT";
-        x = getCenterX(text, g2);
-        y += gp.tileSize;
-        g2.drawString(text, x, y);
-        if(commandNum == 1) {
             g2.drawString(">", x - gp.tileSize, y);
         }
     }

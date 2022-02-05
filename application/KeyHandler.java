@@ -61,23 +61,8 @@ public class KeyHandler implements KeyListener {
         }
 
         if(gp.gameState == gp.gameOverState) {
-            if(code == KeyEvent.VK_UP) {
-                if(gp.ui.commandNum != 0) {
-                    gp.ui.commandNum--;
-                }   
-            }
-
-            if(code == KeyEvent.VK_DOWN) {
-                if(gp.ui.commandNum != 1) {
-                    gp.ui.commandNum++;
-                }
-            }
-
             if(code == KeyEvent.VK_ENTER) {
                 if(gp.ui.commandNum == 0){
-                    // gp.gameState = gp.playState;
-                }
-                if(gp.ui.commandNum == 1){
                     System.exit(0);
                 }
             }
