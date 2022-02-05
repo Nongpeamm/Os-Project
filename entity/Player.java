@@ -106,7 +106,7 @@ public class Player extends Entity{
                 case "up":
                     if(turning_flag != "up") {
                         turning_flag = "up";
-                        spriteCounter = 0;
+                        spriteCounter = 1;
                     } else {
                         worldY -= speed;
                     }
@@ -115,7 +115,7 @@ public class Player extends Entity{
                 case "down":
                     if(turning_flag != "down") {
                         turning_flag = "down";
-                        spriteCounter = 0;
+                        spriteCounter = 1;
                     } else {
                         worldY += speed;
                     }
@@ -124,7 +124,7 @@ public class Player extends Entity{
                 case "left":
                     if(turning_flag != "left") {
                         turning_flag = "left";
-                        spriteCounter = 0;
+                        spriteCounter = 1;
                     } else {
                         worldX -= speed;
                     }
@@ -133,7 +133,7 @@ public class Player extends Entity{
                 case "right":
                     if(turning_flag != "right") {
                         turning_flag = "right";
-                        spriteCounter = 0;
+                        spriteCounter = 1;
                     } else {
                         worldX += speed;
                     }
@@ -141,22 +141,22 @@ public class Player extends Entity{
                 }
             }
             spriteCounter++;
-                if(spriteCounter > 1) {
-                    if(spriteNum == 1){
-                        spriteNum = 2;
-                    } else if(spriteNum == 2) {
-                        spriteNum = 3;
-                    } else if(spriteNum == 3) {
-                        spriteNum = 4;
-                    } else if(spriteNum == 4) {
-                        spriteNum = 2;
-                    }
-                    spriteCounter = 0;
+            if(spriteCounter > 1) {
+                if(spriteNum == 1){
+                    spriteNum = 2;
+                } else if(spriteNum == 2) {
+                    spriteNum = 3;
+                } else if(spriteNum == 3) {
+                    spriteNum = 4;
+                } else if(spriteNum == 4) {
+                    spriteNum = 2;
                 }
+                spriteCounter = 0;
+            }
         }
         else {
             b2StandCounter++;
-            if(b2StandCounter == 20) {
+            if(b2StandCounter == 10) {
                 spriteNum = 1;
                 b2StandCounter = 0;
             }
