@@ -15,3 +15,4 @@ I'm still at the beginners level, if you have any advice I'm willing to expand m
 - entity : Stored entity class & subclass.
 - object : Stored object class & subclass.
 - res : Contain any **resources**(images, text file, fonts, etc.) I use in this project.
+- tiles : Contain tile class & subclass.
