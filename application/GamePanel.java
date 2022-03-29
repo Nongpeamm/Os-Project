@@ -10,8 +10,9 @@ import javax.swing.JPanel;
 import entity.Player;
 import object.SuperObject;
 import tiles.TileManager;
+import object.Object_Health;
 
-public class GamePanel extends JPanel implements Runnable{
+public class GamePanel extends JPanel implements Runnable {
     final int originalTileSize = 16;
     final int scale = 2;
 
@@ -27,13 +28,19 @@ public class GamePanel extends JPanel implements Runnable{
     public final int worldHeight = tileSize * maxScreenRow;
 
     public final int maxBomb = 350;
+    public final int maxHealth = 160;
 
     TileManager tileM = new TileManager(this);
     KeyHandler keyH = new KeyHandler(this);
+
     public CollisionChecker cChecker = new CollisionChecker(this);
     public AssetSetter aSetter = new AssetSetter(this);
     public Player player = new Player(this, keyH);
-    public SuperObject obj[] = new SuperObject[maxBomb];
+
+    public SuperObject Bomb[] = new SuperObject[maxBomb];
+    public Object_Health Health[] = new Object_Health[maxHealth];
+    public SuperObject drawH = new SuperObject();
+
     public UI ui = new UI(this);
     // public EventHandler eHandler = new EventHandler(this);
     Thread gameThread;
@@ -44,7 +51,7 @@ public class GamePanel extends JPanel implements Runnable{
     public final int pauseState = 2;
     public final int gameOverState = 3;
 
-    Color bgColor = new Color(129, 186, 68); 
+    Color bgColor = new Color(129, 186, 68);
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -66,18 +73,18 @@ public class GamePanel extends JPanel implements Runnable{
 
     @Override
     public void run() {
-        double drawInterval = 1000000000/60;
+        double drawInterval = 1000000000 / 60;
         double nextDrawTime = System.nanoTime() + drawInterval;
 
-        while(gameThread != null) {
+        while (gameThread != null) {
             update();
             repaint();
 
-            try{
+            try {
                 double remainingTime = nextDrawTime - System.nanoTime();
                 remainingTime /= 1000000;
 
-                if(remainingTime < 0){
+                if (remainingTime < 0) {
                     remainingTime = 0;
                 }
 
@@ -85,34 +92,44 @@ public class GamePanel extends JPanel implements Runnable{
 
                 nextDrawTime += drawInterval;
 
-            } catch (InterruptedException e){
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
     }
 
     public void update() {
-        if(gameState == playState) {
+        if (gameState == playState) {
             player.update();
         }
     }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        
+
         Graphics2D g2 = (Graphics2D) g;
 
-        if(gameState == titleState) {
+        int i;
+
+        if (gameState == titleState) {
             ui.draw(g2);
         } else {
             tileM.draw(g2);
-            for(int i = 0; i < obj.length; i++) {
-                if(obj[i] != null) {
-                    obj[i].draw(g2, this);
+
+            for (i = 0; i < Bomb.length; i++) { // bomb draw
+                if (Bomb[i] != null) {
+                    Bomb[i].draw(g2, this);
+                }
+            }
+
+            for (i = 0; i < Health.length; i++) { // health draw
+                if (Health[i] != null) {
+                    Health[i].draw(g2, this);
                 }
             }
             player.draw(g2);
             ui.draw(g2);
+            drawH.drawHealthTanknum(g2, this);
         }
 
         g2.dispose();

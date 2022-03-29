@@ -5,7 +5,7 @@ import javax.swing.JFrame;
 public class Main {
     public static void main(String[] args) {
         JFrame window = new JFrame();
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // manage frame open
         window.setResizable(false);
         window.setTitle("Little Blue in the Landmine");
 

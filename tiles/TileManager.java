@@ -15,7 +15,7 @@ import application.UtilityTool;
 public class TileManager {
     GamePanel gp;
     public Tile[] tile;
-    public int mapTilePattern [][];
+    public int mapTilePattern [][]; //draw map
     Random rand = new Random();
 
     public TileManager(GamePanel gp) {
@@ -26,7 +26,7 @@ public class TileManager {
         loadMap("/res/map/map_pattern.txt");
     }
 
-    public void getTileImage() {
+    public void getTileImage() {    //all tile type
         setup(0, "dirt_tile1", false);
         setup(1, "upper_tile", false);
         setup(2, "bottom_tile", false);

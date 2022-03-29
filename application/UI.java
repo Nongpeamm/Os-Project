@@ -15,7 +15,7 @@ import object.SuperObject;
 public class UI {
     GamePanel gp;
     Font arial_bold, alagard, retro, opt_prin;
-    Color gOverColor = new Color(96, 41, 35); 
+    Color gOverColor = new Color(96, 41, 35);
 
     BufferedImage health;
     public int commandNum = 0;
@@ -26,7 +26,7 @@ public class UI {
     public UI(GamePanel gp) {
         this.gp = gp;
         arial_bold = new Font("Arial", Font.BOLD, 20);
-        
+
         try {
             InputStream is = getClass().getResourceAsStream("/res/font/Alagard.ttf");
             alagard = Font.createFont(Font.TRUETYPE_FONT, is);
@@ -47,10 +47,10 @@ public class UI {
     }
 
     public void draw(Graphics2D g2) {
-        if(gp.gameState == gp.titleState) {
+        if (gp.gameState == gp.titleState) {
             drawTitle(g2);
         }
-        if(gp.gameState == gp.playState) {
+        if (gp.gameState == gp.playState) {
             drawPlayerHP(g2);
 
             g2.setFont(arial_bold);
@@ -59,15 +59,15 @@ public class UI {
             g2.drawString("X: " + gp.player.worldX / 32, 5, 20);
             g2.drawString("Y: " + gp.player.worldY / 32, 70, 20);
 
-            playTime += (double)1/60;
+            playTime += (double) 1 / 60;
             g2.drawString("Time: " + dFormat.format(playTime), 690, 20);
         }
-        if(gp.gameState == gp.pauseState) {
+        if (gp.gameState == gp.pauseState) {
             g2.setFont(alagard);
             g2.setColor(Color.red);
             drawPauseScreen(g2);
         }
-        if(gp.gameState == gp.gameOverState) {
+        if (gp.gameState == gp.gameOverState) {
             g2.setFont(opt_prin);
             drawGameOver(g2);
         }
@@ -75,13 +75,13 @@ public class UI {
 
     public void drawPlayerHP(Graphics2D g2) {
         int x = gp.tileSize / 2;
-        int y = gp.tileSize * 18 + 20;
+        int y = gp.tileSize * 19;
         int i = 0;
 
-        while(i < gp.player.life) {
-            g2.drawImage(health, x, y, null);
-            i++;
-            x += gp.tileSize + 2;
+        while (i < gp.player.life) {
+            g2.drawImage(health, x, y, 14, 14, null);
+            i += 5;
+            x += gp.tileSize / 2;
         }
     }
 
@@ -98,7 +98,7 @@ public class UI {
 
         // Title shadow
         g2.setColor(Color.orange);
-        g2.drawString(text, x, y+5);
+        g2.drawString(text, x, y + 5);
 
         // Title main color
         g2.setColor(Color.yellow);
@@ -112,7 +112,7 @@ public class UI {
 
         // Subtext shadow
         g2.setColor(Color.orange);
-        g2.drawString(underText, x, y+2);
+        g2.drawString(underText, x, y + 2);
 
         // Subtext main color
         g2.setColor(Color.yellow);
@@ -132,7 +132,7 @@ public class UI {
         x = getCenterX(text, g2);
         y += gp.tileSize * 8;
         g2.drawString(text, x, y);
-        if(commandNum == 0) {
+        if (commandNum == 0) {
             g2.drawString(">", x - gp.tileSize, y);
         }
 
@@ -140,7 +140,7 @@ public class UI {
         x = getCenterX(text, g2);
         y += gp.tileSize;
         g2.drawString(text, x, y);
-        if(commandNum == 1) {
+        if (commandNum == 1) {
             g2.drawString(">", x - gp.tileSize, y);
         }
     }
@@ -175,20 +175,20 @@ public class UI {
         // y += gp.tileSize * 5;
         // g2.drawString(text, x, y);
         // if(commandNum == 0) {
-        //     g2.drawString(">", x - gp.tileSize, y);
+        // g2.drawString(">", x - gp.tileSize, y);
         // }
 
         text = "QUIT";
         x = getCenterX(text, g2);
         y += gp.tileSize * 5;
         g2.drawString(text, x, y);
-        if(commandNum == 0) {
+        if (commandNum == 0) {
             g2.drawString(">", x - gp.tileSize, y);
         }
     }
 
     public int getCenterX(String text, Graphics2D g2) {
-        int length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+        int length = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
         int x = gp.screenWidth / 2 - length / 2;
         return x;
     }
