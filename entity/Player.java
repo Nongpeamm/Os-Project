@@ -8,10 +8,10 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import application.GamePanel;
+import application.AssetSetter;
 import application.KeyHandler;
 import application.UtilityTool;
 import object.Object_Health;
-import java.lang.Thread;
 
 public class Player extends Entity {
     GamePanel gp;
@@ -96,9 +96,11 @@ public class Player extends Entity {
                 direction = "right";
                 keyH.rightPressed = false;
             }
+            
 
             collisionOn = false;
             gp.cChecker.checkTile(this);
+
             int objIndex = gp.cChecker.checkObject(this, true);
             stepOnObj(objIndex);
 
@@ -161,64 +163,24 @@ public class Player extends Entity {
                 b2StandCounter = 0;
             }
         }
+
+        if(keyH.spacebarPressed == true){
+            gp.createBullet(worldX, worldY, turning_flag);
+        }
     }
+
 
     public void stepOnObj(int index) {
         if (index != 999) {
             if (index >= 2000) {
                 if (gp.player.life != maxLife) {
-                    int disfromMax = maxLife - gp.player.life;
-                    // int loopcount=0;
-                    if (disfromMax <= gp.Health[index - 2000].HealthTanknum) {
+                    System.out.println("Health Thread : " + gp.player.life);
+                    gp.player.life = gp.player.life + 5;
+                    gp.Health[index - 2000].HealthTanknum -= 5;
+                    if (gp.Health[index - 2000].HealthTanknum == 0) {
                         // gp.Health[index - 2000].isStepped = true;
-                        for (int i = 0; i < disfromMax; i += 5) {
-                            System.out.println("Health Thread : " + gp.player.life);
-                            try {
-                                Thread.sleep(1000);
-                                gp.player.life = gp.player.life + 5;
-                                gp.Health[index - 2000].HealthTanknum -= 5;
-                                if (gp.Health[index - 2000].HealthTanknum == 0) {
-                                    // gp.Health[index - 2000].isStepped = true;
-                                    gp.Health[index - 2000] = null;
-                                    break;
-                                }
-                            } catch (Exception ex) {
-
-                            }
-                        }
-                        // loopcount++;
-
-                    } else if (disfromMax > gp.Health[index - 2000].HealthTanknum) {
-                        // gp.Health[index - 2000].isStepped = true;
-                        for (int i = 0; i < disfromMax; i += 5) {
-                            System.out.println("Health Thread : " + gp.player.life);
-                            try {
-                                Thread.sleep(1000);
-                                gp.player.life = gp.player.life + 5;
-                                gp.Health[index - 2000].HealthTanknum -= 5;
-                                if (gp.Health[index - 2000].HealthTanknum == 0) {
-                                    // gp.Health[index - 2000].isStepped = true;
-                                    gp.Health[index - 2000] = null;
-                                    break;
-                                }
-                            } catch (Exception ex) {
-
-                            }
-                            // gp.player.life = gp.player.life + 5;
-                            // gp.Health[index - 2000].HealthTanknum -= 5;
-
-                            // if (gp.Health[index - 2000].HealthTanknum == 0) {
-                            // // gp.Health[index - 2000].isStepped = true;
-                            // // System.out.println(index);
-                            // gp.Health[index - 2000] = null;
-                            // break;
-                            // }
-
-                        }
-
+                        gp.Health[index - 2000] = null;
                     }
-                    // gp.player.life += gp.Health[index - 2000].HealthTanknum;
-                    // gp.Health[index - 2000].HealthTanknum -= disfromMax;
                 } else {
                     System.out.println(index);
                 }
@@ -231,6 +193,7 @@ public class Player extends Entity {
                 }
                 gp.Bomb[index].isStepped = true;
                 gp.Bomb[index].image = null;
+                gp.aSetter.RandomNewbomb();
                 // delete old bomb index and re a new one
             }
 

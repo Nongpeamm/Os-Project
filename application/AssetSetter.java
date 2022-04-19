@@ -6,10 +6,13 @@ import object.Object_Bomb;
 import object.Object_Health;
 
 public class AssetSetter {
-    GamePanel gp;
+    GamePanel gp;public 
+    int count = 0;
+    public int Object_Location[][];
 
     public AssetSetter(GamePanel gp) {
         this.gp = gp;
+        Object_Location = new int[gp.maxWorldCol][gp.maxWorldRow];
     }
 
     public void setObject() {
@@ -51,6 +54,23 @@ public class AssetSetter {
             if (col == gp.maxWorldCol - 1) {
                 col = 1;
                 row++;
+            }
+        }
+    }
+
+    public void RandomNewbomb(){
+        Random R = new Random();
+        while(true){
+            int x =  R.nextInt(gp.maxWorldCol-1) + 1;
+            int y =  R.nextInt(gp.maxWorldRow-1) + 1;
+            if(Object_Location[x][y] == 0){
+                Object_Location[x][y] = 1;
+                gp.Bomb[count] = new Object_Bomb();
+                gp.Bomb[count].worldX = x * gp.tileSize;
+                gp.Bomb[count].worldY = y * gp.tileSize;
+                System.out.println("new Bomb at " + x + " " + y);
+                count++;
+                break;
             }
         }
     }

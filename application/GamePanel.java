@@ -8,6 +8,7 @@ import java.awt.Graphics2D;
 import javax.swing.JPanel;
 
 import entity.Player;
+import entity.Bullet;
 import object.SuperObject;
 import tiles.TileManager;
 import object.Object_Health;
@@ -30,6 +31,9 @@ public class GamePanel extends JPanel implements Runnable {
     public final int maxBomb = 350;
     public final int maxHealth = 160;
 
+    long firingTimer;
+    int firingDelay = 600;
+
     TileManager tileM = new TileManager(this);
     KeyHandler keyH = new KeyHandler(this);
 
@@ -40,6 +44,7 @@ public class GamePanel extends JPanel implements Runnable {
     public SuperObject Bomb[] = new SuperObject[maxBomb];
     public Object_Health Health[] = new Object_Health[maxHealth];
     public SuperObject drawH = new SuperObject();
+    public Bullet bullets[] = new Bullet[10];
 
     public UI ui = new UI(this);
     // public EventHandler eHandler = new EventHandler(this);
@@ -98,9 +103,32 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
+    public void createBullet(int X, int Y, String Direction){
+        long elapsed = (System.nanoTime() - firingTimer) / 1000000;
+        if(elapsed > firingDelay){
+            for(int i=0; i<bullets.length; i++)
+            {
+                if(bullets[i]==null){
+                    bullets[i] = new Bullet(this,X,Y,Direction);
+                    firingTimer = System.nanoTime();
+                    break;
+                }
+            }
+        }
+    }
+
     public void update() {
         if (gameState == playState) {
             player.update();
+            for(int i=0;i<bullets.length;i++)
+            {
+                if(bullets[i]!=null){
+                    if(bullets[i].update()==false){
+                        System.out.println("hit");
+                        bullets[i] = null;
+                    }
+                }
+            }
         }
     }
 
@@ -128,6 +156,12 @@ public class GamePanel extends JPanel implements Runnable {
                 }
             }
             player.draw(g2);
+
+            for(i=0; i<bullets.length; i++){
+                if(bullets[i] != null){
+                    bullets[i].draw(g2);
+                }
+            }
             ui.draw(g2);
             drawH.drawHealthTanknum(g2, this);
         }
