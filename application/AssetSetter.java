@@ -68,7 +68,7 @@ public class AssetSetter {
                 gp.Bomb[count] = new Object_Bomb();
                 gp.Bomb[count].worldX = x * gp.tileSize;
                 gp.Bomb[count].worldY = y * gp.tileSize;
-                System.out.println("new Bomb at " + x + " " + y);
+                System.out.println("random Bomb at " + x + " " + y);
                 count++;
                 break;
             }
